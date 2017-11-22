@@ -30,6 +30,7 @@
 
 #define TIMER_NOT_AN_EVENT (-2)
 #define NO_TIMER_AVAILABLE (-1)
+#define HAS_EXISTING_TIMER (-3)
 
 class Timer
 {
@@ -42,13 +43,13 @@ public:
   int8_t after(unsigned long duration, void (*callback)(void*), void* context);
   int8_t oscillate(uint8_t pin, unsigned long period, uint8_t startingValue);
   int8_t oscillate(uint8_t pin, unsigned long period, uint8_t startingValue, int repeatCount);
-  
+
   /**
    * This method will generate a pulse of !startingValue, occuring period after the
    * call of this method and lasting for period. The Pin will be left in !startingValue.
    */
   int8_t pulse(uint8_t pin, unsigned long period, uint8_t startingValue);
-  
+
   /**
    * This method will generate a pulse of pulseValue, starting immediately and of
    * length period. The pin will be left in the !pulseValue state

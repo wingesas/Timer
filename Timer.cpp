@@ -96,6 +96,16 @@ int8_t Timer::pulse(uint8_t pin, unsigned long period, uint8_t startingValue)
  */
 int8_t Timer::pulseImmediate(uint8_t pin, unsigned long period, uint8_t pulseValue)
 {
+    // check if pin is already assigned to an event
+    for (int8_t i = 0; i < MAX_NUMBER_OF_EVENTS; i++)
+    {
+        if (_events[i].eventType != EVENT_NONE && _events[i].pin == pin)
+        {
+          // pin assigned to an event; do not pulse again
+          return HAS_EXISTING_TIMER;
+        }
+  }
+
     int8_t id(oscillate(pin, period, pulseValue, 1));
     // now fix the repeat count
     if (id >= 0 && id < MAX_NUMBER_OF_EVENTS) {
